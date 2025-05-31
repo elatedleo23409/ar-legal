@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AR Legal Associates - Law Firm Website
+
+A modern, responsive website for AR Legal Associates, a law firm based in Kochi, Kerala. Built with Next.js, TypeScript, and Tailwind CSS.
+
+## Features
+
+- 📱 Fully responsive design that works seamlessly on all devices
+- 🎨 Professional design with elegant color scheme tailored for a law firm
+- 🧩 Modular component architecture for easier maintenance
+- ✨ Interactive UI elements with smooth animations
+- 📊 Contact form for client inquiries
+- 🌐 Google Maps integration for office location
+
+## Tech Stack
+
+- **Framework:** [Next.js](https://nextjs.org/) with App Router
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Icons:** Material Symbols Outlined and Font Awesome
+- **Deployment:** Ready for Vercel deployment
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
+
+```bash
+npm install
+```
+
+Then run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                 # Next.js App Router
+│   ├── globals.css      # Global CSS and imports
+│   ├── layout.tsx       # Root layout with metadata
+│   └── page.tsx         # Main page component
+│
+└── components/          # Reusable components
+    ├── AboutSection.tsx     # About the firm section
+    ├── BlogSection.tsx      # Legal insights & resources
+    ├── ContactSection.tsx   # Contact form and office details
+    ├── Footer.tsx           # Website footer
+    ├── Hero.tsx             # Landing banner/hero section
+    ├── Logo.tsx             # Company logo component
+    ├── Navbar.tsx           # Navigation bar
+    ├── PracticeArea.tsx     # Individual practice area card
+    ├── PracticeAreas.tsx    # Practice areas section
+    ├── SectionHeading.tsx   # Reusable section heading
+    ├── TeamSection.tsx      # Team members showcase
+    └── Testimonials.tsx     # Client testimonials section
+```
 
-## Learn More
+## Component Customization
 
-To learn more about Next.js, take a look at the following resources:
+Each section of the website is built as a standalone component, making it easy to:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Customize content without affecting the layout
+- Add/remove sections as needed
+- Maintain consistent styling across the site
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Styling
 
-## Deploy on Vercel
+The site uses a carefully crafted Tailwind CSS configuration with:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Custom color palette optimized for a professional law firm
+- Consistent typography with Roboto as the primary font
+- Material design icons integration
+- Responsive design with mobile-first approach
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+Deploy your own instance:
+
+```bash
+# Build for production
+npm run build
+
+# Start production server
+npm run start
+```
+
+Alternatively, deploy directly to Vercel:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyourusername%2Far-legal)
+
+## License
+
+[MIT](LICENSE)
