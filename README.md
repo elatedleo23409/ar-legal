@@ -1,6 +1,6 @@
-# AR Legal Associates - Law Firm Website
+# A R Legal Associates - Law Firm Website
 
-A modern, responsive website for AR Legal Associates, a law firm based in Kochi, Kerala. Built with Next.js, TypeScript, and Tailwind CSS.
+A modern, responsive website for A R Legal Associates, a law firm based in Kochi, Kerala. Built with Next.js, TypeScript, and Tailwind CSS.
 
 ## Features
 

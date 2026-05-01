@@ -1,4 +1,5 @@
 import React from "react";
+import { practiceAreas } from "../lib/practiceAreas";
 
 interface ContactInfoItemProps {
   icon: string;
@@ -13,186 +14,170 @@ const ContactInfoItem: React.FC<ContactInfoItemProps> = ({
 }) => {
   return (
     <div className="flex items-start">
-      <span className="material-symbols-outlined text-primary-700 mr-3">
+      <span className="material-symbols-outlined text-gold-400 mr-4 mt-0.5">
         {icon}
       </span>
       <div>
-        <h4 className="font-semibold">{title}</h4>
-        {children}
+        <p className="font-eyebrow text-ink-500 mb-1">{title}</p>
+        <div className="text-ink-800 font-serif">{children}</div>
       </div>
     </div>
   );
 };
 
+const inputClass =
+  "w-full px-0 py-3 bg-transparent border-0 border-b border-ink-300 focus:border-ink-900 focus:outline-none focus:ring-0 transition-colors duration-200 font-serif text-lg text-ink-900 placeholder:text-ink-400";
+
+const labelClass = "block font-eyebrow text-ink-500 mb-2";
+
 const ContactSection: React.FC = () => {
   return (
-    <div className="bg-white py-16">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Get In Touch
+    <section
+      id="contact"
+      className="bg-paper-50 py-28 border-t border-ink-200"
+    >
+      <div className="container mx-auto px-6 lg:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 max-w-6xl mx-auto">
+          <div className="lg:col-span-7">
+            <p className="font-eyebrow text-gold-400 mb-5">Correspondence</p>
+            <h2 className="text-4xl md:text-5xl font-serif font-medium mb-6 text-ink-900 tracking-tight leading-[1.1]">
+              Get in touch.
             </h2>
-            <p className="text-gray-600 mb-8">
-              Schedule a consultation with our experienced attorneys to discuss
-              your legal needs.
+            <div className="h-px w-12 bg-gold-400 mb-8"></div>
+            <p className="text-ink-600 mb-12 leading-relaxed text-lg font-serif italic max-w-xl">
+              Reach out to discuss your matter. We will respond within one
+              business day.
             </p>
-            <form className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <form className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
+                  <label htmlFor="name" className={labelClass}>
                     Full Name
                   </label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-300"
-                  />
+                  <input type="text" id="name" className={inputClass} />
                 </div>
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
+                  <label htmlFor="email" className={labelClass}>
                     Email Address
                   </label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-300"
-                  />
+                  <input type="email" id="email" className={inputClass} />
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
+                  <label htmlFor="phone" className={labelClass}>
                     Phone Number
                   </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-300"
-                  />
+                  <input type="tel" id="phone" className={inputClass} />
                 </div>
                 <div>
-                  <label
-                    htmlFor="service"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Service Needed
+                  <label htmlFor="service" className={labelClass}>
+                    Practice Area
                   </label>
-                  <select
-                    id="service"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-300"
-                  >
-                    <option value="">Select a Service</option>
-                    <option value="property">Property Law</option>
-                    <option value="family">Family Law</option>
-                    <option value="corporate">Corporate Law</option>
-                    <option value="criminal">Criminal Law</option>
-                    <option value="employment">Employment Law</option>
-                    <option value="civil">Civil Litigation</option>
+                  <select id="service" className={inputClass}>
+                    <option value="">Select a Practice Area</option>
+                    {practiceAreas.map((area) => (
+                      <option key={area.slug} value={area.slug}>
+                        {area.title}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
               <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+                <label htmlFor="message" className={labelClass}>
                   Message
                 </label>
                 <textarea
                   id="message"
-                  rows={5}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-300"
+                  rows={4}
+                  className={`${inputClass} resize-none`}
                 ></textarea>
               </div>
               <button
                 type="submit"
-                className="bg-primary-700 text-white px-6 py-3 rounded-md font-medium hover:bg-primary-800 transition-colors duration-300 transform hover:-translate-y-1 w-full md:w-auto"
+                className="group inline-flex items-center bg-ink-900 text-paper-100 px-10 py-4 font-serif text-[15px] tracking-wide border border-ink-900 hover:bg-ink-800 transition-colors duration-300"
               >
-                Schedule Consultation
+                Send Enquiry
+                <span className="material-symbols-outlined ml-2 text-base group-hover:translate-x-1 transition-transform duration-300">
+                  arrow_forward
+                </span>
               </button>
             </form>
           </div>
 
-          {/* Contact Information */}
-          <div>
-            <div className="bg-gray-100 p-8 rounded-lg h-full">
-              <h3 className="text-2xl font-semibold mb-6">Our Office</h3>
-              <div className="mb-6">
-                <div className="rounded-lg overflow-hidden h-64 mb-6">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31421.975568509367!2d76.25945394999999!3d9.9312329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080c1aaaaf10d3%3A0x6e2ea01cf06d1c8e!2sKochi%2C%20Kerala%2C%20India!5e0!3m2!1sen!2sus!4v1623825891578!5m2!1sen!2sus"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    loading="lazy"
-                    title="Office Location"
-                  ></iframe>
-                </div>
+          <div className="lg:col-span-5">
+            <div className="bg-ink-900 text-paper-100 p-10 lg:p-12 h-full relative">
+              <div
+                aria-hidden
+                className="absolute top-6 left-6 right-6 h-px bg-gold-400/40"
+              ></div>
+              <p className="font-eyebrow text-gold-300 mb-5 mt-4">Visit</p>
+              <h3 className="text-3xl font-serif font-medium mb-6 text-paper-100 tracking-tight">
+                Our Office
+              </h3>
+              <div className="h-px w-12 bg-gold-400 mb-8"></div>
+              <div className="overflow-hidden h-56 mb-10 border border-ink-700">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31434.59494792838!2d76.24698407431642!3d9.990042000000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d9a5f038a0d%3A0x7022a26ee9ca3f70!2sAR%20Legal%20Associates!5e0!3m2!1sen!2sin!4v1777626816159!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  title="Office Location"
+                ></iframe>
               </div>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <ContactInfoItem icon="location_on" title="Address">
-                  <p className="text-gray-600">
-                    123 Legal Avenue, Kochi, Kerala 682001, India
+                  <p className="text-paper-200">
+                  Nurul Huda Masjid Building, 
+                  <br />
+                  opposite Specialist Hospital, 
+                  <br />
+                  Near North Railway Station,
+                  <br />
+                  Ernakulam North, Kochi, Kerala 682018
                   </p>
                 </ContactInfoItem>
                 <ContactInfoItem icon="call" title="Phone">
-                  <p className="text-gray-600">+91 98765 43210</p>
+                  <p className="text-paper-200">+91 9495701999</p>
+                  <p className="text-paper-200">+91 9895701999</p>
                 </ContactInfoItem>
                 <ContactInfoItem icon="email" title="Email">
-                  <p className="text-gray-600">info@justicelaw.com</p>
+                  <p className="text-paper-200">office.cochin@arlegal.co.in</p>
                 </ContactInfoItem>
                 <ContactInfoItem icon="schedule" title="Office Hours">
-                  <p className="text-gray-600">
-                    Monday - Friday: 9:00 AM - 6:00 PM
+                  <p className="text-paper-200">
+                    Monday &ndash; Friday &middot; 9:00 &ndash; 18:00
+                    <br />
+                    Saturday &middot; 9:00 &ndash; 13:00
                   </p>
-                  <p className="text-gray-600">Saturday: 9:00 AM - 1:00 PM</p>
                 </ContactInfoItem>
               </div>
-              <div className="mt-8">
-                <h4 className="font-semibold mb-3">Connect With Us</h4>
-                <div className="flex space-x-4">
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors duration-300"
-                  >
-                    <i className="fa-brands fa-facebook-f"></i>
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-blue-400 text-white rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-300"
-                  >
-                    <i className="fa-brands fa-twitter"></i>
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-pink-600 text-white rounded-full flex items-center justify-center hover:bg-pink-700 transition-colors duration-300"
-                  >
-                    <i className="fa-brands fa-instagram"></i>
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-blue-700 text-white rounded-full flex items-center justify-center hover:bg-blue-800 transition-colors duration-300"
-                  >
-                    <i className="fa-brands fa-linkedin-in"></i>
-                  </a>
+              <div className="mt-10 pt-8 border-t border-ink-700">
+                <p className="font-eyebrow text-ink-400 mb-4">Connect</p>
+                <div className="flex space-x-3">
+                  {[
+                    { icon: "linkedin-in", label: "LinkedIn", href: "https://www.linkedin.com/company/a-r-legal-associates/" },
+                  ].map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      className="w-10 h-10 border border-ink-700 text-paper-200 flex items-center justify-center hover:border-gold-400 hover:text-gold-300 transition-colors duration-300"
+                    >
+                      <i className={`fa-brands fa-${s.icon}`}></i>
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,148 +1,106 @@
 import React from "react";
+import Link from "next/link";
 import Logo from "./Logo";
+import { practiceAreas } from "../lib/practiceAreas";
+import { featureFlags } from "../lib/featureFlags";
+
+const navLinkClass =
+  "relative font-serif text-[15px] text-ink-700 hover:text-ink-900 transition-colors duration-200 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-px after:w-0 after:bg-gold-400 after:transition-all after:duration-300 hover:after:w-full";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-3">
-        <div className="flex justify-between items-center">
-          <Logo />
+    <header className="bg-paper-100/95 backdrop-blur-sm border-b border-ink-200 sticky top-0 z-40">
+      <div className="container mx-auto px-6 lg:px-10">
+        <div className="flex justify-between items-center py-5">
+          <Logo size="md" />
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8 text-gray-700">
-            <a
-              href="#"
-              className="hover:text-primary-700 transition-colors duration-300 font-medium"
-            >
+          <nav className="hidden md:flex items-center space-x-10">
+            <Link href="/" className={navLinkClass}>
               Home
-            </a>
-            <a
-              href="#"
-              className="hover:text-primary-700 transition-colors duration-300 font-medium"
-            >
+            </Link>
+            <Link href="/about" className={navLinkClass}>
               About
-            </a>
+            </Link>
             <details className="relative group">
-              <summary className="list-none cursor-pointer font-medium hover:text-primary-700 transition-colors duration-300 flex items-center">
+              <summary className="list-none cursor-pointer flex items-center font-serif text-[15px] text-ink-700 hover:text-ink-900 transition-colors duration-200">
                 Practice Areas
-                <span className="material-symbols-outlined text-sm ml-1 group-hover:rotate-180 transition-transform duration-300">
+                <span className="material-symbols-outlined text-base ml-1 group-open:rotate-180 transition-transform duration-300">
                   expand_more
                 </span>
               </summary>
-              <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-md p-2 w-48 z-50">
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-primary-50 rounded-md transition-colors duration-200"
-                >
-                  Property Law
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-primary-50 rounded-md transition-colors duration-200"
-                >
-                  Family Law
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-primary-50 rounded-md transition-colors duration-200"
-                >
-                  Corporate Law
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-primary-50 rounded-md transition-colors duration-200"
-                >
-                  Criminal Law
-                </a>
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-paper-50 border border-ink-200 shadow-xl py-3 w-64 z-50">
+                <div className="px-5 pb-2 mb-2 border-b border-ink-200">
+                  <p className="font-eyebrow text-gold-400">Our Practice</p>
+                </div>
+                {practiceAreas.map((area) => (
+                  <Link
+                    key={area.slug}
+                    href={`/practice-areas/${area.slug}`}
+                    className="block px-5 py-2 font-serif text-ink-700 hover:text-ink-900 hover:bg-paper-200 transition-colors duration-200"
+                  >
+                    {area.title}
+                  </Link>
+                ))}
               </div>
             </details>
-            <a
-              href="#"
-              className="hover:text-primary-700 transition-colors duration-300 font-medium"
-            >
-              Attorneys
-            </a>
-            <a
-              href="#"
-              className="hover:text-primary-700 transition-colors duration-300 font-medium"
-            >
-              Blog
-            </a>
-            <a
-              href="#"
-              className="hover:text-primary-700 transition-colors duration-300 font-medium"
-            >
+            {featureFlags.showTeam && (
+              <Link href="/#team" className={navLinkClass}>
+                People
+              </Link>
+            )}
+            <Link href="/#contact" className={navLinkClass}>
               Contact
-            </a>
-          </div>
+            </Link>
+          </nav>
 
-          {/* Call to Action Button */}
-          <div className="hidden md:block">
-            <a
-              href="#"
-              className="bg-primary-700 text-white px-5 py-2 rounded-md hover:bg-primary-800 transition-colors duration-300"
-            >
-              Free Consultation
-            </a>
-          </div>
-
-          {/* Mobile Menu */}
           <details className="md:hidden relative">
             <summary className="list-none">
-              <span className="material-symbols-outlined text-3xl cursor-pointer">
+              <span className="material-symbols-outlined text-3xl cursor-pointer text-ink-900">
                 menu
               </span>
             </summary>
-            <div className="absolute right-0 mt-3 bg-white shadow-lg rounded-md p-4 w-48 z-50">
-              <div className="flex flex-col space-y-3">
-                <a
-                  href="#"
-                  className="hover:text-primary-700 transition-colors duration-200"
-                >
+            <div className="absolute right-0 mt-4 bg-paper-50 border border-ink-200 shadow-xl p-5 w-64 z-50">
+              <div className="flex flex-col space-y-3 font-serif">
+                <Link href="/" className="text-ink-700 hover:text-ink-900">
                   Home
-                </a>
-                <a
-                  href="#"
-                  className="hover:text-primary-700 transition-colors duration-200"
-                >
+                </Link>
+                <Link href="/about" className="text-ink-700 hover:text-ink-900">
                   About
-                </a>
-                <a
-                  href="#"
-                  className="hover:text-primary-700 transition-colors duration-200"
-                >
-                  Practice Areas
-                </a>
-                <a
-                  href="#"
-                  className="hover:text-primary-700 transition-colors duration-200"
-                >
-                  Attorneys
-                </a>
-                <a
-                  href="#"
-                  className="hover:text-primary-700 transition-colors duration-200"
-                >
-                  Blog
-                </a>
-                <a
-                  href="#"
-                  className="hover:text-primary-700 transition-colors duration-200"
+                </Link>
+                <div className="border-t border-ink-200 pt-3">
+                  <p className="font-eyebrow text-gold-400 mb-2">
+                    Practice Areas
+                  </p>
+                  {practiceAreas.map((area) => (
+                    <Link
+                      key={area.slug}
+                      href={`/practice-areas/${area.slug}`}
+                      className="block py-1 text-ink-700 hover:text-ink-900"
+                    >
+                      {area.title}
+                    </Link>
+                  ))}
+                </div>
+                {featureFlags.showTeam && (
+                  <Link
+                    href="/#team"
+                    className="text-ink-700 hover:text-ink-900 border-t border-ink-200 pt-3"
+                  >
+                    People
+                  </Link>
+                )}
+                <Link
+                  href="/#contact"
+                  className="text-ink-700 hover:text-ink-900"
                 >
                   Contact
-                </a>
-                <a
-                  href="#"
-                  className="bg-primary-700 text-white px-4 py-2 rounded-md text-center hover:bg-primary-800 transition-colors duration-300"
-                >
-                  Free Consultation
-                </a>
+                </Link>
               </div>
             </div>
           </details>
         </div>
       </div>
-    </nav>
+    </header>
   );
 };
 

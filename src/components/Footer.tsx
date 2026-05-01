@@ -1,204 +1,134 @@
 import React from "react";
+import Link from "next/link";
 import Logo from "./Logo";
+import { practiceAreas } from "../lib/practiceAreas";
+import { featureFlags } from "../lib/featureFlags";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-900 text-white py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div>
-            <Logo />
-            <p className="mt-4 text-gray-400">
-              Providing expert legal services in Kochi since 1995. Dedicated to
-              delivering exceptional results with integrity and professionalism.
+    <footer className="bg-ink-900 text-paper-200 pt-20 pb-10 relative">
+      <div
+        aria-hidden
+        className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-400 to-transparent"
+      ></div>
+
+      <div className="container mx-auto px-6 lg:px-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 pb-16 border-b border-ink-700">
+          <div className="md:col-span-4">
+            <Logo variant="light" size="md" />
+            <p className="mt-8 text-paper-300 font-serif italic text-lg leading-relaxed max-w-xs">
+              Your firewall against all legal impasses.
             </p>
-            <div className="flex mt-6 space-x-4">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors duration-200"
-              >
-                <i className="fa-brands fa-facebook-f"></i>
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors duration-200"
-              >
-                <i className="fa-brands fa-twitter"></i>
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors duration-200"
-              >
-                <i className="fa-brands fa-instagram"></i>
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors duration-200"
-              >
-                <i className="fa-brands fa-linkedin-in"></i>
-              </a>
+            <div className="flex mt-8 space-x-3">
+              {[
+                { icon: "linkedin-in", label: "LinkedIn", href: "https://www.linkedin.com/company/a-r-legal-associates/" },
+              ].map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="w-10 h-10 border border-ink-700 text-paper-300 flex items-center justify-center hover:border-gold-400 hover:text-gold-300 transition-colors duration-300"
+                >
+                  <i className={`fa-brands fa-${s.icon}`}></i>
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Practice Areas */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">
-              Practice Areas
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  Property Law
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  Family Law
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  Corporate Law
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  Criminal Law
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  Employment Law
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  Civil Litigation
-                </a>
-              </li>
+          <div className="md:col-span-3">
+            <p className="font-eyebrow text-gold-400 mb-6">Practice Areas</p>
+            <ul className="space-y-3 font-serif">
+              {practiceAreas.map((area) => (
+                <li key={area.slug}>
+                  <Link
+                    href={`/practice-areas/${area.slug}`}
+                    className="text-paper-300 hover:text-paper-100 transition-colors duration-200"
+                  >
+                    {area.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">
-              Quick Links
-            </h3>
-            <ul className="space-y-2">
+          <div className="md:col-span-2">
+            <p className="font-eyebrow text-gold-400 mb-6">The Firm</p>
+            <ul className="space-y-3 font-serif">
               <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                <Link
+                  href="/about"
+                  className="text-paper-300 hover:text-paper-100 transition-colors duration-200"
                 >
                   About Us
-                </a>
+                </Link>
               </li>
+              {featureFlags.showTeam && (
+                <li>
+                  <Link
+                    href="/#team"
+                    className="text-paper-300 hover:text-paper-100 transition-colors duration-200"
+                  >
+                    People
+                  </Link>
+                </li>
+              )}
               <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                <Link
+                  href="/#contact"
+                  className="text-paper-300 hover:text-paper-100 transition-colors duration-200"
                 >
-                  Our Attorneys
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  Legal Resources
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  FAQs
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  Careers
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  Contact Us
-                </a>
+                  Contact
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Contact Info */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">
-              Contact Information
-            </h3>
-            <ul className="space-y-3">
+          <div className="md:col-span-3">
+            <p className="font-eyebrow text-gold-400 mb-6">Office</p>
+            <ul className="space-y-4 font-serif text-paper-300">
               <li className="flex items-start">
-                <span className="material-symbols-outlined text-primary-500 mr-2">
+                <span className="material-symbols-outlined text-gold-400 mr-3 text-base">
                   location_on
                 </span>
-                <span className="text-gray-400">
-                  123 Legal Avenue, Kochi, Kerala 682001, India
+                <span>
+                  Nurul Huda Masjid Building, 
+                  <br />
+                  opposite Specialist Hospital, 
+                  <br />
+                  Near North Railway Station,
+                  <br />
+                  Ernakulam North, Kochi, Kerala 682018
                 </span>
               </li>
               <li className="flex items-start">
-                <span className="material-symbols-outlined text-primary-500 mr-2">
+                <span className="material-symbols-outlined text-gold-400 mr-3 text-base">
                   call
                 </span>
-                <span className="text-gray-400">+91 98765 43210</span>
+                <span>
+                  +91 9495701999
+                  <br />
+                  +91 9895701999
+                </span>
               </li>
               <li className="flex items-start">
-                <span className="material-symbols-outlined text-primary-500 mr-2">
+                <span className="material-symbols-outlined text-gold-400 mr-3 text-base">
                   email
                 </span>
-                <span className="text-gray-400">info@justicelaw.com</span>
-              </li>
-              <li className="flex items-start">
-                <span className="material-symbols-outlined text-primary-500 mr-2">
-                  schedule
-                </span>
-                <span className="text-gray-400">
-                  Mon-Fri: 9:00 AM - 6:00 PM
-                  <br />
-                  Sat: 9:00 AM - 1:00 PM
-                </span>
+                <span>office.cochin@arlegal.co.in</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-10 pt-6 text-center text-gray-400">
-          <p>
-            &copy; {new Date().getFullYear()} AR Legal Associates. All rights
+        <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-ink-400 text-sm font-serif">
+            &copy; {new Date().getFullYear()} A R Legal Associates. All rights
             reserved.
+          </p>
+          <p className="text-ink-400 text-sm font-serif italic">
+            Advocates &middot; Counsellors &middot; Kochi
           </p>
         </div>
       </div>

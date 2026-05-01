@@ -1,88 +1,67 @@
 import React from "react";
+import Link from "next/link";
 import SectionHeading from "./SectionHeading";
+import { team } from "../lib/team";
 
 interface TeamMemberProps {
+  slug: string;
   name: string;
   role: string;
-  specialty: string;
+  specialty?: string;
   image: string;
 }
 
 const TeamMember: React.FC<TeamMemberProps> = ({
+  slug,
   name,
   role,
   specialty,
   image,
 }) => {
   return (
-    <div className="group">
-      <div className="bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-2">
-        <div className="h-64 overflow-hidden">
+    <Link href={`/team/${slug}`} className="group block">
+      <div className="relative">
+        <div className="aspect-square overflow-hidden bg-paper-200">
           <img
             src={image}
             alt={name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
           />
         </div>
-        <div className="p-6">
-          <h3 className="text-xl font-semibold mb-1">{name}</h3>
-          <p className="text-gray-500 text-sm mb-2">{role}</p>
-          <p className="text-primary-700 font-medium mb-4">{specialty}</p>
-          <a
-            href="#"
-            className="inline-flex items-center text-primary-700 font-medium group-hover:text-primary-800 transition-colors duration-300"
-          >
-            View Profile
-            <span className="material-symbols-outlined ml-1 text-sm group-hover:translate-x-1 transition-transform duration-300">
-              arrow_forward
-            </span>
-          </a>
-        </div>
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gold-400 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
       </div>
-    </div>
+      <div className="pt-6">
+        <p className="font-eyebrow text-gold-400 mb-2">{role}</p>
+        <h3 className="text-xl font-serif font-medium text-ink-900 mb-2 tracking-tight">
+          {name}
+        </h3>
+        {specialty && <p className="text-ink-600 font-serif italic mb-5">{specialty}</p>}
+        <span className="inline-flex items-center text-ink-900 font-serif text-sm tracking-wide border-b border-ink-300 group-hover:border-gold-400 pb-1 transition-colors duration-300">
+          View Profile
+          <span className="material-symbols-outlined ml-1 text-base group-hover:translate-x-1 transition-transform duration-300">
+            arrow_forward
+          </span>
+        </span>
+      </div>
+    </Link>
   );
 };
 
-const teamData = [
-  {
-    name: "Rahul Nair",
-    role: "Senior Partner",
-    specialty: "Corporate Law",
-    image: "https://randomuser.me/api/portraits/men/42.jpg",
-  },
-  {
-    name: "Meera Krishnan",
-    role: "Senior Partner",
-    specialty: "Family Law",
-    image: "https://randomuser.me/api/portraits/women/65.jpg",
-  },
-  {
-    name: "David Thomas",
-    role: "Associate",
-    specialty: "Property Law",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
-  },
-  {
-    name: "Anita Menon",
-    role: "Associate",
-    specialty: "Criminal Law",
-    image: "https://randomuser.me/api/portraits/women/31.jpg",
-  },
-];
-
 const TeamSection: React.FC = () => {
   return (
-    <div className="bg-white py-16">
-      <div className="container mx-auto px-4">
+    <section id="team" className="bg-paper-50 py-28">
+      <div className="container mx-auto px-6 lg:px-10">
         <SectionHeading
-          title="Meet Our Legal Team"
-          subtitle="Our experienced attorneys are dedicated to providing the highest quality legal representation."
+          eyebrow="The People"
+          title="Meet Our Team"
+          subtitle="The advocates who carry the firm's standards forward, every day, on every matter."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {teamData.map((member, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-5xl mx-auto">
+          {team.map((member) => (
             <TeamMember
-              key={index}
+              key={member.slug}
+              slug={member.slug}
               name={member.name}
               role={member.role}
               specialty={member.specialty}
@@ -90,17 +69,8 @@ const TeamSection: React.FC = () => {
             />
           ))}
         </div>
-
-        <div className="text-center mt-12">
-          <a
-            href="#"
-            className="bg-primary-700 text-white px-6 py-3 rounded-md font-medium hover:bg-primary-800 transition-colors duration-300 inline-block"
-          >
-            View All Attorneys
-          </a>
-        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

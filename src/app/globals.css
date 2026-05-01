@@ -1,7 +1,50 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  font-family: "EB Garamond", Garamond, Georgia, serif;
+  color: #0d0b08;
+  background-color: #fbf9f4;
+  font-feature-settings: "liga" 1, "kern" 1, "onum" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.prose-justify p {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-feature-settings: "liga" 1, "kern" 1, "lnum" 1;
+}
+
+.font-eyebrow {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.editorial-rule {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #A8853A 50%, transparent);
+}
+
+.gold-rule {
+  height: 1px;
+  background-color: #A8853A;
+}
+
+::selection {
+  background-color: #A8853A;
+  color: #FBF9F4;
+}
