@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { practiceAreas } from "../lib/practiceAreas";
 
 interface ContactInfoItemProps {
@@ -30,7 +32,58 @@ const inputClass =
 
 const labelClass = "block font-eyebrow text-ink-500 mb-2";
 
+type FormStatus = "idle" | "submitting" | "success" | "error";
+
 const ContactSection: React.FC = () => {
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("submitting");
+    setErrorMessage("");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
+    if (!accessKey) {
+      setStatus("error");
+      setErrorMessage(
+        "Form is not configured. Please email us directly at office.cochin@arlegal.co.in."
+      );
+      return;
+    }
+
+    formData.append("access_key", accessKey);
+    formData.append("subject", "New Enquiry from A R Legal Associates Website");
+    formData.append("from_name", "A R Legal Associates Website");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+        setErrorMessage(
+          data.message ||
+            "Something went wrong. Please email us at office.cochin@arlegal.co.in."
+        );
+      }
+    } catch {
+      setStatus("error");
+      setErrorMessage(
+        "Could not send your enquiry. Please email us at office.cochin@arlegal.co.in."
+      );
+    }
+  };
+
   return (
     <section
       id="contact"
@@ -48,19 +101,39 @@ const ContactSection: React.FC = () => {
               Reach out to discuss your matter. We will respond within one
               business day.
             </p>
-            <form className="space-y-8">
+            <form className="space-y-8" onSubmit={handleSubmit} noValidate>
+              <input
+                type="checkbox"
+                name="botcheck"
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+                aria-hidden="true"
+              />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                   <label htmlFor="name" className={labelClass}>
                     Full Name
                   </label>
-                  <input type="text" id="name" className={inputClass} />
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    className={inputClass}
+                  />
                 </div>
                 <div>
                   <label htmlFor="email" className={labelClass}>
                     Email Address
                   </label>
-                  <input type="email" id="email" className={inputClass} />
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    className={inputClass}
+                  />
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -68,16 +141,26 @@ const ContactSection: React.FC = () => {
                   <label htmlFor="phone" className={labelClass}>
                     Phone Number
                   </label>
-                  <input type="tel" id="phone" className={inputClass} />
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    className={inputClass}
+                  />
                 </div>
                 <div>
                   <label htmlFor="service" className={labelClass}>
                     Practice Area
                   </label>
-                  <select id="service" className={inputClass}>
+                  <select
+                    id="service"
+                    name="practice_area"
+                    className={inputClass}
+                    defaultValue=""
+                  >
                     <option value="">Select a Practice Area</option>
                     {practiceAreas.map((area) => (
-                      <option key={area.slug} value={area.slug}>
+                      <option key={area.slug} value={area.title}>
                         {area.title}
                       </option>
                     ))}
@@ -90,19 +173,41 @@ const ContactSection: React.FC = () => {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
+                  required
                   rows={4}
                   className={`${inputClass} resize-none`}
                 ></textarea>
               </div>
-              <button
-                type="submit"
-                className="group inline-flex items-center bg-ink-900 text-paper-100 px-10 py-4 font-serif text-[15px] tracking-wide border border-ink-900 hover:bg-ink-800 transition-colors duration-300"
-              >
-                Send Enquiry
-                <span className="material-symbols-outlined ml-2 text-base group-hover:translate-x-1 transition-transform duration-300">
-                  arrow_forward
-                </span>
-              </button>
+              <div className="flex flex-col gap-4">
+                <button
+                  type="submit"
+                  disabled={status === "submitting"}
+                  className="group inline-flex items-center bg-ink-900 text-paper-100 px-10 py-4 font-serif text-[15px] tracking-wide border border-ink-900 hover:bg-ink-800 transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed self-start"
+                >
+                  {status === "submitting" ? "Sending..." : "Send Enquiry"}
+                  <span className="material-symbols-outlined ml-2 text-base group-hover:translate-x-1 transition-transform duration-300">
+                    arrow_forward
+                  </span>
+                </button>
+                {status === "success" && (
+                  <p
+                    role="status"
+                    className="font-serif text-ink-700 border-l-2 border-gold-400 pl-4 py-2"
+                  >
+                    Thank you. Your enquiry has been received, we will respond
+                    within three business days.
+                  </p>
+                )}
+                {status === "error" && (
+                  <p
+                    role="alert"
+                    className="font-serif text-ink-700 border-l-2 border-ink-900 pl-4 py-2"
+                  >
+                    {errorMessage}
+                  </p>
+                )}
+              </div>
             </form>
           </div>
 
@@ -130,9 +235,9 @@ const ContactSection: React.FC = () => {
               <div className="space-y-6">
                 <ContactInfoItem icon="location_on" title="Address">
                   <p className="text-paper-200">
-                  Nurul Huda Masjid Building, 
+                  Nurul Huda Masjid Building,
                   <br />
-                  opposite Specialist Hospital, 
+                  opposite Specialist Hospital,
                   <br />
                   Near North Railway Station,
                   <br />
